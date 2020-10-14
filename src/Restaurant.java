@@ -39,4 +39,38 @@ public class Restaurant {
         menuFileManager.updateById(id, updatedRow);
         System.out.println("Update successful.");
     }
+
+    public void viewOrder() throws IOException {
+        ArrayList<String> orders = orderFileManager.readByField(1, name);
+        System.out.println("Order list:");
+        orders.forEach(e -> {
+            Order order = new Order(e);
+            System.out.printf(
+                    "ID: %s [%s] %s - %s (%s)\n",
+                    order.getId(),
+                    order.getRestaurantName(),
+                    order.getFoodName(),
+                    order.getQty(),
+                    order.getStatus()
+            );
+        });
+        System.out.println("Order end.");
+    }
+
+    private void updateOrderStatus(int id, String status) throws IOException {
+        String dataString = orderFileManager.readById(id);
+        Order selectedOrder = new Order(dataString);
+        selectedOrder.setStatus(status);
+        orderFileManager.updateById(id, selectedOrder.toString());
+    }
+
+    public void preparingOrder(int id) throws IOException {
+        updateOrderStatus(id, "preparing");
+        System.out.printf("Order#%s is preparing.\n", id);
+    }
+
+    public void readyOrder(int id) throws IOException {
+        updateOrderStatus(id, "ready");
+        System.out.printf("Order#%s is ready.\n", id);
+    }
 }

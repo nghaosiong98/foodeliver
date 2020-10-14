@@ -36,6 +36,30 @@ public class Order {
         this.status = split[6];
     }
 
+    public String getRestaurantName() {
+        return restaurantName;
+    }
+
+    public String getFoodName() {
+        return foodName;
+    }
+
+    public int getQty() {
+        return qty;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public String getRiderName() {
+        return riderName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
     public int getId() {
         return id;
     }

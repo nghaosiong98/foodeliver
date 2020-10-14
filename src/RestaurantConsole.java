@@ -24,12 +24,15 @@ public class RestaurantConsole {
                 case "viewMenu":
                     restaurant.viewMenu();
                     break;
-//                case "viewOrder":
-//                    restaurant.viewOrder();
-//                    break;
-//                case "updateOrder":
-//                    restaurant.updateOrder(Integer.parseInt(inputArr[1]), inputArr[2]);
-//                    break;
+                case "viewOrder":
+                    restaurant.viewOrder();
+                    break;
+                case "prepareOrder":
+                    restaurant.preparingOrder(Integer.parseInt(inputArr[1]));
+                    break;
+                case "readyOrder":
+                    restaurant.readyOrder(Integer.parseInt(inputArr[1]));
+                    break;
                 default:
                     System.out.println("Invalid command");
                     break;
