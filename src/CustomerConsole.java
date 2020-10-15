@@ -11,20 +11,30 @@ public class CustomerConsole {
         String input;
         while (!(input = consoleReader.readLine()).toLowerCase().equals("exit") ) {
             String[] inputArr = input.split(",");
-            switch (inputArr[0]) {
-                case "place":
-                    // restaurantName, foodName, quantity
-                    customer.placeOrder(inputArr[1],inputArr[2],Integer.parseInt(inputArr[3]),inputArr[4]);
-                    break;
-                case "viewOrder":
-                    customer.viewOrder();
-                    break;
-                case "collect":
-                    customer.collectOrder(Integer.parseInt(inputArr[1]));
-                    break;
-                default:
-                    System.out.println("Invalid command");
-                    break;
+            try {
+                switch (inputArr[0]) {
+                    case "listRestaurant":
+                        customer.viewAllRestaurants();
+                        break;
+                    case "listMenu":
+                        customer.viewMenu(inputArr[1]);
+                        break;
+                    case "place":
+                        // restaurantName, foodName, quantity
+                        customer.placeOrder(inputArr[1], inputArr[2], Integer.parseInt(inputArr[3]), inputArr[4]);
+                        break;
+                    case "viewOrder":
+                        customer.viewOrder();
+                        break;
+                    case "collect":
+                        customer.collectOrder(Integer.parseInt(inputArr[1]));
+                        break;
+                    default:
+                        System.out.println("Invalid command");
+                        break;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Your are missing arguments in the command. Please check again.");
             }
         }
     }

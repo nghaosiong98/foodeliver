@@ -4,14 +4,23 @@ import java.util.ArrayList;
 public class Restaurant implements Comparable<Restaurant> {
     private String name;
     private FileManager menuFileManager;
-    private FileManager orderFileManager;
+    private FileManager orderFileManager = new FileManager("./order.txt");
+    private FileManager restaurantFileManager = new FileManager("./restaurant.txt");;
 
     private int orderCount = 0;
 
     public Restaurant(String name) {
         this.name = name;
         this.menuFileManager = new FileManager(String.format("./%s-menu.txt", this.name));
-        this.orderFileManager = new FileManager("./order.txt");
+
+        try {
+            ArrayList<String> restaurantNames = restaurantFileManager.readAll();
+            if (!restaurantNames.contains(name)) {
+                restaurantFileManager.insertWithoutId(name);
+            }
+        } catch (IOException e) {
+            System.out.println("./restaurant.txt not found.");
+        }
     }
 
     public int getOrderCount() {

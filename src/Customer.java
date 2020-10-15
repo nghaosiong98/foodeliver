@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class Customer implements Comparable<Customer> {
     private String name;
     private FileManager orderFileManager = new FileManager("./order.txt");
+    private FileManager restaurantFileManager = new FileManager("./restaurant.txt");
 
     private int orderCount = 0;
 
@@ -56,6 +57,26 @@ public class Customer implements Comparable<Customer> {
         Order collectedOrder = new Order(Integer.parseInt(split[0]), split[1], split[2], Integer.parseInt(split[3]), split[4], split[5], "collected");
         orderFileManager.updateById(id, collectedOrder.toString());
         System.out.println("Order collected.");
+    }
+
+    public void viewAllRestaurants() throws IOException {
+        ArrayList<String> restaurantNames = restaurantFileManager.readAll();
+        System.out.println("Below are available restaurant(s): ");
+        for (String restaurantName : restaurantNames) {
+            System.out.println(restaurantName);
+        }
+        System.out.println("End of list.");
+    }
+
+    public void viewMenu(String restaurantName) throws IOException {
+        FileManager menuFileManager = new FileManager(String.format("./%s-menu.txt", restaurantName));
+        ArrayList<String> items = menuFileManager.readAll();
+        System.out.printf("Below are food sell by restaurant %s: \n", restaurantName);
+        for (String item : items) {
+            String[] split = item.split(",");
+            System.out.printf("ID: %s - %s\n", split[0], split[1]);
+        }
+        System.out.println("End of list.");
     }
 
     @Override

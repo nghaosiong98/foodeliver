@@ -15,6 +15,14 @@ public class FileManager {
 
     public FileManager(String filePath) {
         this.filePath = filePath;
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Something went wrong when creating " + file.getName());
+            }
+        }
 
         this.metadataFile = String.format("%s-metadata.txt", filePath.split(".txt")[0]);
     }
@@ -24,6 +32,13 @@ public class FileManager {
         File file = new File(filePath);
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
         bufferedWriter.append(String.format("%s,%s", id, row)).append("\n");
+        bufferedWriter.close();
+    }
+
+    public void insertWithoutId(String row) throws IOException {
+        File file = new File(filePath);
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
+        bufferedWriter.append(String.format("%s", row)).append("\n");
         bufferedWriter.close();
     }
 
