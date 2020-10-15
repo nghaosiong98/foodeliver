@@ -9,10 +9,12 @@ public class Admin {
 
     public Admin() {
         this.riderQueue = new MyQueue(Rider.class, MAX_RIDER);
+        riderFileManger.deleteFiles();
     }
 
-    public void addRider(String riderName) {
+    public void addRider(String riderName) throws IOException {
         riderQueue.enqueue(new Rider(riderName));
+        updateRiderFile();
         System.out.printf("Added rider. Name: %s.\n", riderName);
     }
 
@@ -23,6 +25,7 @@ public class Admin {
             return;
         }
         Rider rider = (Rider) riderQueue.dequeue();
+        updateRiderFile();
         String dataString = orderFileManager.readById(orderId);
         Order orderTobeUpdated = new Order(dataString);
         orderTobeUpdated.setRiderName(rider.getName());
@@ -115,5 +118,17 @@ public class Admin {
         viewOrderByStatus(Constant.OrderStatus.PENDING.getStatus());
     }
 
+    private void updateRiderFile() throws IOException {
+        riderFileManger.deleteFiles();
+
+        MyQueue<Rider> tempQueue = new MyQueue<>(Rider.class, MAX_RIDER);
+        Rider rider;
+        while (riderQueue.size() > 0) {
+            rider = (Rider) riderQueue.dequeue();
+            tempQueue.enqueue(rider);
+            riderFileManger.insert(rider.getName());
+        }
+        riderQueue = tempQueue;
+    }
     //TODO: order statistic
 }

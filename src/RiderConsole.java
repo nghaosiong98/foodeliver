@@ -18,6 +18,9 @@ public class RiderConsole {
                 case "deliver":
                     rider.deliverOrder(Integer.parseInt(inputArr[1]));
                     break;
+                case "turn":
+                    rider.checkTurn();
+                    break;
                 default:
                     System.out.println("Invalid command");
                     break;

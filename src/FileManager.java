@@ -141,4 +141,11 @@ public class FileManager {
         }
         return idCounter;
     }
+
+    public void deleteFiles() {
+        File file = new File(filePath);
+        File metadataFile = new File(this.metadataFile);
+        file.delete();
+        metadataFile.delete();
+    }
 }

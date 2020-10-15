@@ -33,5 +33,23 @@ public class Rider {
         System.out.printf("Order#%s has been delivered.", order.getId());
     }
 
+    public void checkTurn() throws IOException {
+        FileManager riderFileManager = new FileManager("./rider.txt");
+        ArrayList<String> riders = riderFileManager.readAll();
+        for (int i = 0; i < riders.size(); i++) {
+            String[] split = riders.get(i).split(",");
+            Rider rider = new Rider(split[1]);
+            if (rider.getName().equals(name)) {
+                if (i == 0) {
+                    System.out.println("You are first in the queue.");
+                } else {
+                    System.out.printf("%s rider(s) before you.\n", i);
+                }
+                return;
+            }
+        }
+        System.out.println("You are not in the queue.");
+    }
+
     //TODO: check how many turns
 }
