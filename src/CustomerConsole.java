@@ -3,10 +3,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class CustomerConsole {
-    public static void main(String[] args) throws IOException {
+    public CustomerConsole(String customerName) throws IOException {
+        System.out.printf("Welcome back %s, Please proceed with your command!\n", customerName);
         BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.print("Please enter customer name: ");
-        String customerName = consoleReader.readLine();
         Customer customer = new Customer(customerName);
         String input;
         while (!(input = consoleReader.readLine()).toLowerCase().equals("exit") ) {
