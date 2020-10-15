@@ -1,12 +1,26 @@
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Customer {
+public class Customer implements Comparable<Customer> {
     private String name;
     private FileManager orderFileManager = new FileManager("./order.txt");
 
+    private int orderCount = 0;
+
     public Customer(String name) {
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getOrderCount() {
+        return orderCount;
+    }
+
+    public void increaseOrderCount () {
+        this.orderCount += 1;
     }
 
     public void placeOrder(String restaurantName, String foodName, int quantity, String method) throws IOException {
@@ -42,5 +56,15 @@ public class Customer {
         Order collectedOrder = new Order(Integer.parseInt(split[0]), split[1], split[2], Integer.parseInt(split[3]), split[4], split[5], "collected");
         orderFileManager.updateById(id, collectedOrder.toString());
         System.out.println("Order collected.");
+    }
+
+    @Override
+    public int compareTo(Customer o) {
+        if (orderCount == o.orderCount)
+            return 0;
+        else if (orderCount < o.orderCount)
+            return 1;
+        else
+            return -1;
     }
 }

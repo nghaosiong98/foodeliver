@@ -1,9 +1,11 @@
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Rider {
+public class Rider implements Comparable<Rider> {
     private String name;
     private FileManager orderFileManager;
+
+    private int orderCount = 0;
 
     public Rider (String name) {
         this.name = name;
@@ -51,5 +53,21 @@ public class Rider {
         System.out.println("You are not in the queue.");
     }
 
-    //TODO: check how many turns
+    public void increaseOrderCount() {
+        this.orderCount += 1;
+    }
+
+    public int getOrderCount() {
+        return orderCount;
+    }
+
+    @Override
+    public int compareTo(Rider o) {
+        if (orderCount == o.orderCount)
+            return 0;
+        else if (orderCount < o.orderCount)
+            return 1;
+        else
+            return -1;
+    }
 }

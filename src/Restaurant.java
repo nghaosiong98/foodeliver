@@ -1,17 +1,29 @@
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Restaurant {
+public class Restaurant implements Comparable<Restaurant> {
     private String name;
     private FileManager menuFileManager;
     private FileManager orderFileManager;
 
+    private int orderCount = 0;
+
     public Restaurant(String name) {
-        System.out.println("Initialising restaurant " + name);
         this.name = name;
         this.menuFileManager = new FileManager(String.format("./%s-menu.txt", this.name));
         this.orderFileManager = new FileManager("./order.txt");
-        System.out.println("Initialisation done.");
+    }
+
+    public int getOrderCount() {
+        return orderCount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void increaseOrderCount() {
+        this.orderCount += 1;
     }
 
     public void addMenu(String foodName) throws IOException {
@@ -72,5 +84,15 @@ public class Restaurant {
     public void readyOrder(int id) throws IOException {
         updateOrderStatus(id, "ready");
         System.out.printf("Order#%s is ready.\n", id);
+    }
+
+    @Override
+    public int compareTo(Restaurant o) {
+        if (orderCount == o.orderCount)
+            return 0;
+        else if (orderCount < o.orderCount)
+            return 1;
+        else
+            return -1;
     }
 }

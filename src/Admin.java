@@ -1,5 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class Admin {
     private FileManager riderFileManger = new FileManager("./rider.txt");
@@ -135,7 +137,82 @@ public class Admin {
         riderQueue = tempQueue;
     }
     //TODO: order statistic
-    private void viewOrderStatistic() throws IOException {
 
+    public void viewRiderByHighestDeliveryCount() throws IOException {
+        ArrayList<Rider> riders = new ArrayList<>();
+        ArrayList<String> orders = orderFileManager.readByField(6, Constant.OrderStatus.DELIVERED.getStatus());
+        Boolean notExist;
+        for (String orderStringData : orders) {
+            notExist = true;
+            Order order = new Order(orderStringData);
+            for(Rider rider: riders) {
+                if (rider.getName().equals(order.getRiderName())) {
+                    rider.increaseOrderCount();
+                    notExist = false;
+                    break;
+                }
+            }
+            if (notExist) {
+                Rider newRider = new Rider(order.getRiderName());
+                newRider.increaseOrderCount();
+                riders.add(newRider);
+            }
+        }
+        Collections.sort(riders);
+        for (Rider rider : riders) {
+            System.out.printf("%s - %s\n", rider.getName(), rider.getOrderCount());
+        }
+    }
+
+    public void viewCustomerByHighestOrder() throws IOException {
+        ArrayList<Customer> customers = new ArrayList<>();
+        ArrayList<String> orders = orderFileManager.readAll();
+        Boolean notExist;
+        for (String orderStringData : orders) {
+            notExist = true;
+            Order order = new Order(orderStringData);
+            for(Customer customer: customers) {
+                if (customer.getName().equals(order.getCustomerName())) {
+                    customer.increaseOrderCount();
+                    notExist = false;
+                    break;
+                }
+            }
+            if (notExist) {
+                Customer newCustomer = new Customer(order.getCustomerName());
+                newCustomer.increaseOrderCount();
+                customers.add(newCustomer);
+            }
+        }
+        Collections.sort(customers);
+        for (Customer customer : customers) {
+            System.out.printf("%s - %s\n", customer.getName(), customer.getOrderCount());
+        }
+    }
+
+    public void viewRestaurantByHighestOrder() throws IOException {
+        ArrayList<Restaurant> restaurants = new ArrayList<>();
+        ArrayList<String> orders = orderFileManager.readAll();
+        Boolean notExist;
+        for (String orderStringData : orders) {
+            notExist = true;
+            Order order = new Order(orderStringData);
+            for(Restaurant restaurant: restaurants) {
+                if (restaurant.getName().equals(order.getRestaurantName())) {
+                    restaurant.increaseOrderCount();
+                    notExist = false;
+                    break;
+                }
+            }
+            if (notExist) {
+                Restaurant newCustomer = new Restaurant(order.getRestaurantName());
+                newCustomer.increaseOrderCount();
+                restaurants.add(newCustomer);
+            }
+        }
+        Collections.sort(restaurants);
+        for (Restaurant restaurant : restaurants) {
+            System.out.printf("%s - %s\n", restaurant.getName(), restaurant.getOrderCount());
+        }
     }
 }

@@ -64,6 +64,10 @@ public class Order {
         return id;
     }
 
+    public String getCustomerName() {
+        return customerName;
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }

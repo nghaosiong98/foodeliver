@@ -43,6 +43,15 @@ public class AdminConsole {
                 case "collected":
                     admin.viewCollectedOrder();
                     break;
+                case "riderReport":
+                    admin.viewRiderByHighestDeliveryCount();
+                    break;
+                case "customerReport":
+                    admin.viewCustomerByHighestOrder();
+                    break;
+                case "restaurantReport":
+                    admin.viewRestaurantByHighestOrder();
+                    break;
                 default:
                     System.out.println("Invalid command");
                     break;
