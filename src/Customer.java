@@ -9,9 +9,19 @@ public class Customer {
         this.name = name;
     }
 
-    public void placeOrder(String restaurantName, String foodName, int quantity) throws IOException {
-        Order newOrder = new Order(foodName, restaurantName, quantity, name, Constant.OrderStatus.OPEN.getStatus());
-//        String row = String.format("%s,%s,%s,%s,%s", restaurantName, foodName, quantity, name, "pending");
+    public void placeOrder(String restaurantName, String foodName, int quantity, String method) throws IOException {
+        Order newOrder;
+        switch (method) {
+            case "delivery":
+                newOrder = new Order(foodName, restaurantName, quantity, name, Constant.OrderStatus.OPEN.getStatus());
+                break;
+            case "self-collect":
+                newOrder = new Order(foodName, restaurantName, quantity, name, Constant.OrderStatus.SELF_COLLECT.getStatus());
+                break;
+            default:
+                System.out.println("You entered invalid method.\nPlease choose either \"delivery\"/\"self-collect\"");
+                return;
+        }
         orderFileManager.insert(newOrder.toInsertString());
         System.out.println("Order placed.");
     }

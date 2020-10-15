@@ -98,6 +98,10 @@ public class Admin {
         viewOrderByStatus(Constant.OrderStatus.OPEN.getStatus());
     }
 
+    public void viewSelfCollectOrder() throws IOException {
+        viewOrderByStatus(Constant.OrderStatus.SELF_COLLECT.getStatus());
+    }
+
     public void viewPreparingOrder() throws IOException {
         viewOrderByStatus(Constant.OrderStatus.PREPARING.getStatus());
     }
@@ -131,4 +135,7 @@ public class Admin {
         riderQueue = tempQueue;
     }
     //TODO: order statistic
+    private void viewOrderStatistic() throws IOException {
+
+    }
 }

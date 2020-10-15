@@ -25,6 +25,9 @@ public class AdminConsole {
                 case "open":
                     admin.viewOpenOrder();
                     break;
+                case "self-collect":
+                    admin.viewSelfCollectOrder();
+                    break;
                 case "pending":
                     admin.viewPendingOrder();
                     break;

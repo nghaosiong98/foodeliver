@@ -1,6 +1,7 @@
 public class Constant {
     public enum OrderStatus {
         OPEN("open"),
+        SELF_COLLECT("self-collect"),
         PENDING("pending"),
         PREPARING("preparing"),
         READY("ready"),

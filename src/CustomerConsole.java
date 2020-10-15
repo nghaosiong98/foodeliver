@@ -14,7 +14,7 @@ public class CustomerConsole {
             switch (inputArr[0]) {
                 case "place":
                     // restaurantName, foodName, quantity
-                    customer.placeOrder(inputArr[1],inputArr[2],Integer.parseInt(inputArr[3]));
+                    customer.placeOrder(inputArr[1],inputArr[2],Integer.parseInt(inputArr[3]),inputArr[4]);
                     break;
                 case "viewOrder":
                     customer.viewOrder();
