@@ -10,9 +10,9 @@ public class Customer {
     }
 
     public void placeOrder(String restaurantName, String foodName, int quantity) throws IOException {
-        Order newOrder = new Order(foodName, restaurantName, quantity, name, "pending");
+        Order newOrder = new Order(foodName, restaurantName, quantity, name, Constant.OrderStatus.OPEN.getStatus());
 //        String row = String.format("%s,%s,%s,%s,%s", restaurantName, foodName, quantity, name, "pending");
-        orderFileManager.insert(newOrder.toRequestString());
+        orderFileManager.insert(newOrder.toInsertString());
         System.out.println("Order placed.");
     }
 

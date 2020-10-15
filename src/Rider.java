@@ -10,6 +10,10 @@ public class Rider {
         this.orderFileManager = new FileManager("./order.txt");
     }
 
+    public String getName() {
+        return name;
+    }
+
     // view all order by name
     public void viewOrder() throws IOException {
         ArrayList<String> orders = orderFileManager.readByField(5, name);
@@ -28,4 +32,6 @@ public class Rider {
         orderFileManager.updateById(order.getId(), order.toString());
         System.out.printf("Order#%s has been delivered.", order.getId());
     }
+
+    //TODO: check how many turns
 }

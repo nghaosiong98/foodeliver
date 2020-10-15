@@ -48,8 +48,8 @@ public class Order {
         return qty;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public void setRiderName(String riderName) {
+        this.riderName = riderName;
     }
 
     public String getRiderName() {
@@ -68,7 +68,7 @@ public class Order {
         this.status = status;
     }
 
-    public String toRequestString() {
+    public String toInsertString() {
         return String.format("%s,%s,%s,%s,%s,%s", restaurantName, foodName, qty, customerName, riderName, status);
     }
 
