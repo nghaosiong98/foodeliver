@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 
 public class AdminConsole {
     public static void main(String[] args) throws IOException {
+        System.out.println("This is admin console. Please proceed with command.");
         BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
         Admin admin = new Admin();
         String input;

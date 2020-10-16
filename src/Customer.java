@@ -24,14 +24,18 @@ public class Customer implements Comparable<Customer> {
         this.orderCount += 1;
     }
 
-    public void placeOrder(String restaurantName, String foodName, int quantity, String method) throws IOException {
+    public void placeOrder(String restaurantName, int foodId, int quantity, String method) throws IOException {
+        //TODO: change foodName to foodId
+        FileManager menuFileManager = new FileManager(String.format("./%s-menu.txt", restaurantName));
+        String foodDataString = menuFileManager.readById(foodId);
+        Food food = new Food(foodDataString);
         Order newOrder;
         switch (method) {
             case "delivery":
-                newOrder = new Order(foodName, restaurantName, quantity, name, Constant.OrderStatus.OPEN.getStatus());
+                newOrder = new Order(food.getName(), restaurantName, quantity, name, Constant.OrderStatus.OPEN.getStatus());
                 break;
             case "self-collect":
-                newOrder = new Order(foodName, restaurantName, quantity, name, Constant.OrderStatus.SELF_COLLECT.getStatus());
+                newOrder = new Order(food.getName(), restaurantName, quantity, name, Constant.OrderStatus.SELF_COLLECT.getStatus());
                 break;
             default:
                 System.out.println("You entered invalid method.\nPlease choose either \"delivery\"/\"self-collect\"");

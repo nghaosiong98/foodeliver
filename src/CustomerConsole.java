@@ -19,8 +19,8 @@ public class CustomerConsole {
                         customer.viewMenu(inputArr[1]);
                         break;
                     case "place":
-                        // restaurantName, foodName, quantity
-                        customer.placeOrder(inputArr[1], inputArr[2], Integer.parseInt(inputArr[3]), inputArr[4]);
+                        // restaurantName, foodId, quantity, method ("delivery"/"self-collect")
+                        customer.placeOrder(inputArr[1], Integer.parseInt(inputArr[2]), Integer.parseInt(inputArr[3]), inputArr[4]);
                         break;
                     case "viewOrder":
                         customer.viewOrder();

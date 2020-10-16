@@ -24,6 +24,7 @@ public class Rider implements Comparable<Rider> {
             String[] row = e.split(",");
             System.out.printf("ID: %s [%s] %s - %s (%s)\n", row[0], row[1], row[2], row[3], row[6]);
         });
+        System.out.println("End list.");
     }
 
     // changed order status to delivered
