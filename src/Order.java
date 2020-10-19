@@ -6,6 +6,7 @@ public class Order {
     private String customerName;
     private String riderName = "";
     private String status;
+    private double totalPrice;
 
     public Order(int id, String foodName, String restaurantName, int qty, String customerName, String riderName, String status) {
         this.id = id;
@@ -17,12 +18,13 @@ public class Order {
         this.status = status;
     }
 
-    public Order(String foodName, String restaurantName, int qty, String customerName, String status) {
+    public Order(String foodName, String restaurantName, int qty, String customerName, String status, double totalPrice) {
         this.foodName = foodName;
         this.restaurantName = restaurantName;
         this.qty = qty;
         this.customerName = customerName;
         this.status = status;
+        this.totalPrice = totalPrice;
     }
 
     public Order(String dataString) {
@@ -34,6 +36,7 @@ public class Order {
         this.customerName = split[4];
         this.riderName = split[5];
         this.status = split[6];
+        this.totalPrice = Double.parseDouble(split[7]);
     }
 
     public String getRestaurantName() {
@@ -72,12 +75,16 @@ public class Order {
         this.status = status;
     }
 
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
     public String toInsertString() {
-        return String.format("%s,%s,%s,%s,%s,%s", restaurantName, foodName, qty, customerName, riderName, status);
+        return String.format("%s,%s,%s,%s,%s,%s,%.2f", restaurantName, foodName, qty, customerName, riderName, status, totalPrice);
     }
 
     @Override
     public String toString() {
-        return String.format("%s,%s,%s,%s,%s,%s,%s", id, restaurantName, foodName, qty, customerName, riderName, status);
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%.2f", id, restaurantName, foodName, qty, customerName, riderName, status, totalPrice);
     }
 }

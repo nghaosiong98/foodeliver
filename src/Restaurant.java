@@ -35,8 +35,9 @@ public class Restaurant implements Comparable<Restaurant> {
         this.orderCount += 1;
     }
 
-    public void addMenu(String foodName) throws IOException {
-        menuFileManager.insert(foodName);
+    public void addMenu(String foodName, double price) throws IOException {
+        Food newFood = new Food(foodName, price);
+        menuFileManager.insert(newFood.toInsertString());
         System.out.println("Added successful.");
     }
 
@@ -44,8 +45,8 @@ public class Restaurant implements Comparable<Restaurant> {
         ArrayList<String> rows = menuFileManager.readAll();
         System.out.printf("Below is the menu of %s.\n", name);
         rows.forEach(e -> {
-            String[] row = e.split(",");
-            System.out.printf("%s. %s\n", row[0], row[1]);
+            Food food = new Food(e);
+            System.out.printf("%s. %s - RM%s\n", food.getId(), food.getName(), food.getPrice());
         });
         System.out.println("Menu end.");
     }
@@ -55,9 +56,9 @@ public class Restaurant implements Comparable<Restaurant> {
         System.out.println("Delete successful.");
     }
 
-    public void updateMenu(int id, String newFoodName) throws IOException {
-        String updatedRow = String.format("%s,%s", id, newFoodName);
-        menuFileManager.updateById(id, updatedRow);
+    public void updateMenu(int id, String newFoodName, double price) throws IOException {
+        Food food = new Food(id, newFoodName, price);
+        menuFileManager.updateById(id, food.toString());
         System.out.println("Update successful.");
     }
 
@@ -67,11 +68,12 @@ public class Restaurant implements Comparable<Restaurant> {
         orders.forEach(e -> {
             Order order = new Order(e);
             System.out.printf(
-                    "ID: %s [%s] %s - %s (%s)\n",
+                    "ID: %s [%s] %s - %s Price: %s (%s)\n",
                     order.getId(),
                     order.getRestaurantName(),
                     order.getFoodName(),
                     order.getQty(),
+                    order.getTotalPrice(),
                     order.getStatus()
             );
         });

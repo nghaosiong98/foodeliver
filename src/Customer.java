@@ -25,17 +25,17 @@ public class Customer implements Comparable<Customer> {
     }
 
     public void placeOrder(String restaurantName, int foodId, int quantity, String method) throws IOException {
-        //TODO: change foodName to foodId
         FileManager menuFileManager = new FileManager(String.format("./%s-menu.txt", restaurantName));
         String foodDataString = menuFileManager.readById(foodId);
         Food food = new Food(foodDataString);
+        double totalPrice = food.getPrice() * quantity;
         Order newOrder;
         switch (method) {
             case "delivery":
-                newOrder = new Order(food.getName(), restaurantName, quantity, name, Constant.OrderStatus.OPEN.getStatus());
+                newOrder = new Order(food.getName(), restaurantName, quantity, name, Constant.OrderStatus.OPEN.getStatus(), totalPrice);
                 break;
             case "self-collect":
-                newOrder = new Order(food.getName(), restaurantName, quantity, name, Constant.OrderStatus.SELF_COLLECT.getStatus());
+                newOrder = new Order(food.getName(), restaurantName, quantity, name, Constant.OrderStatus.SELF_COLLECT.getStatus(), totalPrice);
                 break;
             default:
                 System.out.println("You entered invalid method.\nPlease choose either \"delivery\"/\"self-collect\"");
@@ -49,17 +49,17 @@ public class Customer implements Comparable<Customer> {
         ArrayList<String> orders = orderFileManager.readByField(4, name);
         System.out.println("Your orders:");
         orders.forEach(e -> {
-            String[] row = e.split(",");
-            System.out.printf("ID: %s [%s] %s - %s (%s)\n", row[0], row[1], row[2], row[3], row[6]);
+            Order order = new Order(e);
+            System.out.printf("ID: %s [%s] %s - %s Price: %.2f (%s)\n", order.getId(), order.getRestaurantName(), order.getFoodName(), order.getQty(), order.getTotalPrice(), order.getStatus());
         });
         System.out.println("Order end.");
     }
 
     public void collectOrder(int id) throws IOException {
-        String order = orderFileManager.readById(id);
-        String[] split = order.split(",");
-        Order collectedOrder = new Order(Integer.parseInt(split[0]), split[1], split[2], Integer.parseInt(split[3]), split[4], split[5], "collected");
-        orderFileManager.updateById(id, collectedOrder.toString());
+        String orderDataString = orderFileManager.readById(id);
+        Order order = new Order(orderDataString);
+        order.setStatus(Constant.OrderStatus.COLLECTED.getStatus());
+        orderFileManager.updateById(id, order.toString());
         System.out.println("Order collected.");
     }
 
@@ -74,11 +74,11 @@ public class Customer implements Comparable<Customer> {
 
     public void viewMenu(String restaurantName) throws IOException {
         FileManager menuFileManager = new FileManager(String.format("./%s-menu.txt", restaurantName));
-        ArrayList<String> items = menuFileManager.readAll();
+        ArrayList<String> foods = menuFileManager.readAll();
         System.out.printf("Below are food sell by restaurant %s: \n", restaurantName);
-        for (String item : items) {
-            String[] split = item.split(",");
-            System.out.printf("ID: %s - %s\n", split[0], split[1]);
+        for (String foodDataString : foods) {
+            Food food = new Food(foodDataString);
+            System.out.printf("ID: %s - %s, Price: %.2f\n", food.getId(), food.getName(), food.getPrice());
         }
         System.out.println("End of list.");
     }

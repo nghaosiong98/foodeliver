@@ -13,13 +13,13 @@ public class RestaurantConsole {
             try {
                 switch (inputArr[0]) {
                     case "add":
-                        restaurant.addMenu(inputArr[1]);
+                        restaurant.addMenu(inputArr[1], Double.parseDouble(inputArr[2]));
                         break;
                     case "delete":
                         restaurant.deleteMenu(Integer.parseInt(inputArr[1]));
                         break;
                     case "update":
-                        restaurant.updateMenu(Integer.parseInt(inputArr[1]), inputArr[2]);
+                        restaurant.updateMenu(Integer.parseInt(inputArr[1]), inputArr[2], Double.parseDouble(inputArr[3]));
                         break;
                     case "viewMenu":
                         restaurant.viewMenu();
