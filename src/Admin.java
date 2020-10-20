@@ -4,8 +4,8 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class Admin {
-    private FileManager riderFileManger = new FileManager("./rider.txt");
-    private FileManager orderFileManager = new FileManager("./order.txt");
+    private FileManager riderFileManger = new FileManager("./rider.csv");
+    private FileManager orderFileManager = new FileManager("./order.csv");
     private MyQueue riderQueue;
     private final int MAX_RIDER = 10;
 

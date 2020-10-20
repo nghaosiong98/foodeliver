@@ -11,7 +11,7 @@ public class FileManager {
 
     private String filePath;
     private String metadataFile;
-    private final String TEMP_FILE = "./temp.txt";
+    private final String TEMP_FILE = "./temp.csv";
 
     public FileManager(String filePath) {
         this.filePath = filePath;
@@ -24,7 +24,7 @@ public class FileManager {
             }
         }
 
-        this.metadataFile = String.format("%s-metadata.txt", filePath.split(".txt")[0]);
+        this.metadataFile = String.format("%s-metadata.txt", filePath.split(".csv")[0]);
     }
 
     public void insert(String row) throws IOException {
@@ -128,7 +128,7 @@ public class FileManager {
     public int increaseIdCounter() throws IOException {
         final String ID_COUNTER_KEY = "ID_COUNTER";
         File metadataFile = new File(this.metadataFile);
-        File tempFile = new File("meta-temp.txt");
+        File tempFile = new File("meta-temp.csv");
         String line;
         int idCounter = 1;
         if (!metadataFile.exists()) {

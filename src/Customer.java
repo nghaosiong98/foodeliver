@@ -3,8 +3,8 @@ import java.util.ArrayList;
 
 public class Customer implements Comparable<Customer> {
     private String name;
-    private FileManager orderFileManager = new FileManager("./order.txt");
-    private FileManager restaurantFileManager = new FileManager("./restaurant.txt");
+    private FileManager orderFileManager = new FileManager("./order.csv");
+    private FileManager restaurantFileManager = new FileManager("./restaurant.csv");
 
     private int orderCount = 0;
 
@@ -25,7 +25,7 @@ public class Customer implements Comparable<Customer> {
     }
 
     public void placeOrder(String restaurantName, int foodId, int quantity, String method) throws IOException {
-        FileManager menuFileManager = new FileManager(String.format("./%s-menu.txt", restaurantName));
+        FileManager menuFileManager = new FileManager(String.format("./%s-menu.csv", restaurantName));
         String foodDataString = menuFileManager.readById(foodId);
         Food food = new Food(foodDataString);
         double totalPrice = food.getPrice() * quantity;
@@ -73,7 +73,7 @@ public class Customer implements Comparable<Customer> {
     }
 
     public void viewMenu(String restaurantName) throws IOException {
-        FileManager menuFileManager = new FileManager(String.format("./%s-menu.txt", restaurantName));
+        FileManager menuFileManager = new FileManager(String.format("./%s-menu.csv", restaurantName));
         ArrayList<String> foods = menuFileManager.readAll();
         System.out.printf("Below are food sell by restaurant %s: \n", restaurantName);
         for (String foodDataString : foods) {

@@ -4,14 +4,14 @@ import java.util.ArrayList;
 public class Restaurant implements Comparable<Restaurant> {
     private String name;
     private FileManager menuFileManager;
-    private FileManager orderFileManager = new FileManager("./order.txt");
-    private FileManager restaurantFileManager = new FileManager("./restaurant.txt");;
+    private FileManager orderFileManager = new FileManager("./order.csv");
+    private FileManager restaurantFileManager = new FileManager("./restaurant.csv");;
 
     private int orderCount = 0;
 
     public Restaurant(String name) {
         this.name = name;
-        this.menuFileManager = new FileManager(String.format("./%s-menu.txt", this.name));
+        this.menuFileManager = new FileManager(String.format("./%s-menu.csv", this.name));
 
         try {
             ArrayList<String> restaurantNames = restaurantFileManager.readAll();
@@ -19,7 +19,7 @@ public class Restaurant implements Comparable<Restaurant> {
                 restaurantFileManager.insertWithoutId(name);
             }
         } catch (IOException e) {
-            System.out.println("./restaurant.txt not found.");
+            System.out.println("./restaurant.csv not found.");
         }
     }
 
@@ -46,7 +46,7 @@ public class Restaurant implements Comparable<Restaurant> {
         System.out.printf("Below is the menu of %s.\n", name);
         rows.forEach(e -> {
             Food food = new Food(e);
-            System.out.printf("%s. %s - RM%s\n", food.getId(), food.getName(), food.getPrice());
+            System.out.printf("%s. %s - RM%.2f\n", food.getId(), food.getName(), food.getPrice());
         });
         System.out.println("Menu end.");
     }

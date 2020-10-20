@@ -9,7 +9,7 @@ public class Rider implements Comparable<Rider> {
 
     public Rider (String name) {
         this.name = name;
-        this.orderFileManager = new FileManager("./order.txt");
+        this.orderFileManager = new FileManager("./order.csv");
     }
 
     public String getName() {
@@ -37,7 +37,7 @@ public class Rider implements Comparable<Rider> {
     }
 
     public void checkTurn() throws IOException {
-        FileManager riderFileManager = new FileManager("./rider.txt");
+        FileManager riderFileManager = new FileManager("./rider.csv");
         ArrayList<String> riders = riderFileManager.readAll();
         for (int i = 0; i < riders.size(); i++) {
             String[] split = riders.get(i).split(",");
